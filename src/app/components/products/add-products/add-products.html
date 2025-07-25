@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Add New Product</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Product Name</mat-label>
+    <input matInput [(ngModel)]="productName" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Product Price</mat-label>
+    <input matInput type="number" [(ngModel)]="productPrice" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="!productName || !productPrice" (click)="save()">Add</button>
+</mat-dialog-actions>

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Products</h2>
+<mat-dialog-content>
+
+  <table mat-table [dataSource]="products" class="mat-elevation-z8 responsive-table">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Product Name</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else viewName">
+          <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="product!.productName "/>
+          </mat-form-field>
+        </ng-container>
+        <ng-template #viewName>{{row.productName }}</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Product Price</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else viewPrice">
+          <mat-form-field appearance="outline">
+            <input matInput type="number" [(ngModel)]="product!.sellingPrice "/>
+          </mat-form-field>
+        </ng-container>
+        <ng-template #viewPrice>{{ row.sellingPrice }}</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else editDelete">
+          <button mat-icon-button color="primary" (click)="saveEdit(i)">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-icon-button (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #editDelete>
+          <button mat-icon-button color="accent" (click)="startEdit(i, row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(i,row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'price', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'price', 'actions']"></tr>
+  </table>
+
+
+</mat-dialog-content>

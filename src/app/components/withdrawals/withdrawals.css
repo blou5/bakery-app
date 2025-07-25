@@ -1,0 +1,27 @@
+.entry-form {
+  max-width: 600px;
+  margin: auto;
+  padding: 16px;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    mat-form-field {
+      flex: 1 1 45%;
+      min-width: 200px;
+    }
+
+    button {
+      align-self: flex-end;
+      margin-top: auto;
+    }
+  }
+}

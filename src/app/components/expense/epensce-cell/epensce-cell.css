@@ -1,0 +1,86 @@
+.dialog-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+}
+
+.table-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+table.mat-table {
+  width: 100% !important;
+  min-width: unset !important;
+  table-layout: auto; // 👈 allows dynamic column width
+}
+
+
+th, td {
+  white-space: nowrap;
+  padding: 8px 12px;
+  font-size: 14px;
+  text-align: left;
+}
+
+@media (max-width: 600px) {
+  table.mat-table {
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 6px 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2rem;
+  }
+}
+.item-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: stretch;
+
+  mat-form-field {
+    flex: 1 1 180px;
+    min-width: 140px;
+  }
+
+  button {
+    height: 56px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: stretch;
+
+
+    mat-form-field {
+      flex: 1 1;
+    }
+
+    button {
+      align-self: center;
+      width: 60%;
+      margin-top: 12px;
+    }
+  }
+}
+

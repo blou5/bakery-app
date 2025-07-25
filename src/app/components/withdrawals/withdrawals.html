@@ -1,0 +1,48 @@
+<mat-card class="entry-form">
+  <form (ngSubmit)="submit()" class="form-grid">
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker"
+             [value]="date()"
+             (dateChange)="date.set($event.value)"
+             name="date" readonly/>
+      <mat-datepicker-toggle matIconSuffix [for]="picker">
+
+      </mat-datepicker-toggle>
+
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="text"
+        inputmode="decimal"
+        pattern="^[0-9]*[.,]?[0-9]*$"
+        maxlength="10"
+        [value]="amount()"
+        (input)="amount.set($any($event.target).value)"
+        name="amount"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Reason</mat-label>
+      <mat-select [value]="reason()" (selectionChange)="onSelectReason($event.value)">
+        <mat-option *ngFor="let r of reasons" [value]="r">{{ r }}</mat-option>
+        <mat-option value="__add_new__"><em>Add new reason...</em></mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    @if (this.reason() === '__add_new__') {
+      <mat-form-field class="full-width">
+        <mat-label>New Holiday</mat-label>
+        <input matInput [(ngModel)]="newReason" name="newReason"/>
+      </mat-form-field>
+    }
+
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>
+</mat-card>

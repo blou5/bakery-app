@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Add New Production</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Product Name</mat-label>
+    <mat-select [(ngModel)]="productId" name="productName">
+      <mat-option *ngFor="let product of products" [value]="product.productId">
+        {{ product.productName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Quantity</mat-label>
+    <input matInput type="number" [(ngModel)]="quantity" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Production Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="date" />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="!productId || !quantity || !date" (click)="save()">Add</button>
+</mat-dialog-actions>

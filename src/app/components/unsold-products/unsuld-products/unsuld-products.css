@@ -1,0 +1,33 @@
+.unsold-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.edit-field {
+  width: 100%;
+  margin: 0;
+}
+
+.responsive-table {
+  width: 100%;
+  min-width: 600px;
+}
+
+@media (max-width: 600px) {
+  .responsive-table {
+    font-size: 14px;
+    min-width: unset;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  .mat-form-field-infix {
+    padding: 0 !important;
+  }
+}

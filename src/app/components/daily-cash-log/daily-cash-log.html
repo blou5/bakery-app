@@ -1,0 +1,85 @@
+<form class="cash-form" (ngSubmit)="submit()">
+  <div class="row">
+    <mat-form-field class="example-full-width">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker"
+             [ngModel]="logDate()"
+             (ngModelChange)="logDate.set($event)"
+             name="logDate" readonly >
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Opening Cash</mat-label>
+      <input
+        matInput
+        type="text"
+        inputmode="decimal"
+        [ngModel]="openingCash()"
+        (ngModelChange)="openingCash.set($event)"
+        appNumericOnlyDirective
+        name="openingCash"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Closing Cash</mat-label>
+      <input
+        matInput
+        type="text"
+        inputmode="decimal"
+        [ngModel]="closingCash()"
+        (ngModelChange)="closingCash.set($event)"
+        name="closingCash"
+        appNumericOnlyDirective
+      />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="full-width">
+    <mat-label>Notes</mat-label>
+    <textarea matInput
+              [ngModel]="notes()"
+              (ngModelChange)="notes.set($event)"
+              name="notes"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Weather</mat-label>
+    <mat-select [ngModel]="weather()"
+                (ngModelChange)="weather.set($event)"
+                name="weather">
+      <mat-option value="sunny">Sunny</mat-option>
+      <mat-option value="cloudy">Cloudy</mat-option>
+      <mat-option value="rainy">Rainy</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox
+    [checked]="isHoliday()"
+    (change)="isHoliday.set($event.checked)"
+    name="holiday"
+  >Holiday?
+  </mat-checkbox
+  >
+
+  @if (isHoliday()) {
+    <mat-form-field class="full-width">
+        <mat-label>Holiday Type</mat-label>
+      <mat-select [value]="holidayType()" (selectionChange)="onSelectHoliday($event.value)" >
+        <mat-option *ngFor="let h of holidayOptions" [value]="h">{{ h }}</mat-option>
+        <mat-option value="__add_new__"><em>Add new holiday…</em></mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    @if (this.holidayType() === 'add-new') {
+      <mat-form-field class="full-width">
+        <mat-label>New Holiday</mat-label>
+        <input matInput [(ngModel)]="newHoliday" name="newHoliday"/>
+      </mat-form-field>
+    }
+  }
+
+  <button mat-raised-button color="primary" >Submit</button>
+</form>

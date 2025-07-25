@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="nav-content">
+    <ul class="nav-links" [class.active]="menuOpen">
+      <li><a routerLink="/daily-cash-log" >Daily Cash Log</a></li>
+      <li><a routerLink="/change-reserve">Change Reserve</a></li>
+      <li><a routerLink="/expenses">Expenses</a></li>
+      <li><a routerLink="/production">Production</a></li>
+      <li><a routerLink="/unsold-products">Unsold Products</a></li>
+      <li><a routerLink="/withdrawals">Withdrawals</a></li>
+    </ul>
+    <div class="hamburger" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!--<app-unsuld-products></app-unsuld-products>-->
