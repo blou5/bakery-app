@@ -1,0 +1,29 @@
+.centered-layout {
+  min-height: 60vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+/ / optional, for clean look
+}
+
+.cash-log-layout {
+  max-width: 850px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.full-width-btn {
+  width: 100%;
+
+  font-size: 1.1rem;
+  padding: 1rem 0;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #2563eb22;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

@@ -1,0 +1,63 @@
+<div class="cash-log-table-wrapper">
+  <table mat-table [dataSource]="logs" class="mat-elevation-z1 full-width-table">
+
+    <!-- ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.logId }}</td>
+    </ng-container>
+
+    <!-- Date -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let row">{{ row.logDate | date: 'MMM d, y' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="openingCash">
+      <th mat-header-cell *matHeaderCellDef>Opening Cash</th>
+      <td mat-cell *matCellDef="let row">{{ row.openingCash | number:'1.2-2' }}</td>
+    </ng-container>
+
+    <!-- Expected Cash -->
+    <ng-container matColumnDef="expectedCash">
+      <th mat-header-cell *matHeaderCellDef>Expected Cash</th>
+      <td mat-cell *matCellDef="let row">{{ row.expectedCash | number:'1.2-2' }}</td>
+    </ng-container>
+
+
+
+    <!-- Withdrawn -->
+    <ng-container matColumnDef="closingCash">
+      <th mat-header-cell *matHeaderCellDef>Closing Cash</th>
+      <td mat-cell *matCellDef="let row">{{ row.closingCash | number:'1.2-2' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="withdrawn">
+      <th mat-header-cell *matHeaderCellDef>Cash Withdrawn</th>
+      <td mat-cell *matCellDef="let row">{{ row.cashWithdrawn | number:'1.2-2' }}</td>
+    </ng-container>
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="status-chip" [ngClass]="getStatus(row).color">
+          {{ getStatus(row).label }}
+        </span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <button mat-icon-button color="warn" (click)="deleteLog(i, row); $event.stopPropagation()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'date', 'openingCash','expectedCash', 'closingCash','withdrawn', 'status', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'date', 'openingCash' ,'expectedCash','closingCash', 'withdrawn', 'status', 'actions']"
+        (click)="openCashLogDialog(row)"></tr>
+  </table>
+</div>

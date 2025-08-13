@@ -1,0 +1,26 @@
+.cash-log-table-wrapper {
+  margin: 2rem auto;
+  max-width: 850px;
+  background: #f8fafc;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px #3331;
+  padding: 1.2rem 1.5rem;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.status-chip {
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+  padding: 2px 14px;
+  border-radius: 15px;
+  font-size: 0.98em;
+  font-weight: 500;
+}
+.status-chip.equal         { background: #e0f7fa; color: #2563eb; }
+.status-chip.more          { background: #ffe0b2; color: #e65100; }
+.status-chip.less          { background: #ffebee; color: #d32f2f; }
+.status-chip.not-completed { background: #e0e7ef; color: #757575; }

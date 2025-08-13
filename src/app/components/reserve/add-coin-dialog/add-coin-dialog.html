@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Add Coin</h2>
+<form [formGroup]="form" (ngSubmit)="save()" style="min-width: 270px;" class="dialog-content">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Denomination</mat-label>
+    <mat-select formControlName="denomination" required>
+      <mat-option *ngFor="let d of denominations" [value]="d">
+        {{ d }} ALL
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Quantity</mat-label>
+    <input matInput type="number" min="1" formControlName="quantity" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option *ngFor="let t of types" [value]="t">{{ t }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+:host ::ng-deep .mat-dialog-container {
+  padding: 2.5rem 2.5rem 2rem 2.5rem !important;
+  border-radius: 2rem !important;
+}
+.dialog-content {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1.4rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.3rem;
+  margin-top: 2rem;
+}

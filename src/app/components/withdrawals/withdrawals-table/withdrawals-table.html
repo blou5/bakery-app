@@ -1,0 +1,101 @@
+
+<div class="cash-log-table-wrapper">
+<button mat-flat-button color="primary" class="full-width-button" (click)="openWithdrawalDialog()">
+  Add Withdrawal
+</button>
+
+
+  <table mat-table [dataSource]="withdrawals" class="mat-elevation-z1 full-width-table">
+
+    <!-- Date -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else dateView">
+          <mat-form-field appearance="outline" class="edit-input">
+            <input matInput type="date" [(ngModel)]="editRow.date" />
+          </mat-form-field>
+        </ng-container>
+        <ng-template #dateView>{{ row.date | date: 'MMM d, y' }}</ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Amount -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else amountView">
+          <mat-form-field appearance="outline" class="edit-input">
+            <input matInput type="number" [(ngModel)]="editRow.amount" />
+          </mat-form-field>
+        </ng-container>
+        <ng-template #amountView>{{ row.amount | number:'1.2-2' }}</ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Reason -->
+    <ng-container matColumnDef="reason">
+      <th mat-header-cell *matHeaderCellDef>Reason</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else reasonView">
+          <mat-form-field appearance="outline" class="edit-input">
+            <input matInput [(ngModel)]="editRow.reason" />
+          </mat-form-field>
+        </ng-container>
+        <ng-template #reasonView>{{ row.reason }}</ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Person -->
+    <ng-container matColumnDef="person">
+      <th mat-header-cell *matHeaderCellDef>Person</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else personView">
+          <mat-form-field appearance="outline" class="edit-input">
+            <input matInput [(ngModel)]="editRow.person" />
+          </mat-form-field>
+        </ng-container>
+        <ng-template #personView>{{ row.person }}</ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Notes -->
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef>Notes</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else notesView">
+          <mat-form-field appearance="outline" class="edit-input">
+            <input matInput [(ngModel)]="editRow.notes" />
+          </mat-form-field>
+        </ng-container>
+        <ng-template #notesView>{{ row.notes }}</ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container *ngIf="editIndex === i; else editDelete">
+          <button mat-icon-button color="primary" (click)="saveEdit()">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="cancelEdit()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #editDelete>
+          <button mat-icon-button color="accent" (click)="startEdit(i, row)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(i, row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['date', 'amount', 'reason', 'person', 'notes', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['date', 'amount', 'reason', 'person', 'notes', 'actions']"></tr>
+  </table>
+</div>
