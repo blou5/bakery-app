@@ -34,7 +34,7 @@ jobs:
       tag: "buziul/bakery-app:latest"
       local-path: "arg-docker/dev"
       remote-path: "/home/arg/app"
-      artifact-path: "dist/aragosta-app"
+      artifact-path: "dist/bakery-app"
       deploy-script: "
         cd /home/arg/app &&
         docker compose pull &&
