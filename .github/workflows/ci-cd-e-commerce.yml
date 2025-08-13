@@ -20,7 +20,7 @@ jobs:
   ci:
     uses: blou5/continu-integ-deve/.github/workflows/app-ci-angular.yml@task-1/remove-deploy
     with:
-      artifact-path: "dist/aragosta-app"
+      artifact-path: "dist/bakery-app"
     secrets:
       SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
       GITHUB_REQ_TOKE: ${{secrets.GITHUB_TOKEN}}
