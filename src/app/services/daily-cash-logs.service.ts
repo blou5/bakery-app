@@ -15,7 +15,7 @@ export class DailyCashLogsService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<DailyCashLogInterface[]> {
-    return this.http.get<DailyCashLogInterface[]>(this.apiUrl);
+    return this.http.get<DailyCashLogInterface[]>(`${this.apiUrl}/find`);
   }
 
   getById(id: number): Observable<DailyCashLogInterface> {
@@ -27,7 +27,7 @@ export class DailyCashLogsService {
   }
 
   update(cashLog: DailyCashLogInterface): Observable<DailyCashLogInterface> {
-    return this.http.put<DailyCashLogInterface>(`${this.apiUrl}/${cashLog.logDate}`, cashLog);
+    return this.http.put<DailyCashLogInterface>(`${this.apiUrl}/${cashLog.logId}`, cashLog);
   }
 
   delete(id: number): Observable<void> {
@@ -38,5 +38,10 @@ export class DailyCashLogsService {
     const dateOnly = new Date().toISOString().split('T')[0];
 
     return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/findLast/`+dateOnly);
+  }
+
+
+  getEstimatedMoney(id:number):Observable<number>{
+    return this.http.get<number>(`${this.apiUrl}/getEstimatedMoney/${id}`);
   }
 }

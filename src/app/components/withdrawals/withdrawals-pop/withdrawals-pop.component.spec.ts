@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Withdrawals } from './withdrawals';
+import { WithdrawalsPop } from './withdrawals-pop.component';
 
 describe('Withdrawals', () => {
-  let component: Withdrawals;
-  let fixture: ComponentFixture<Withdrawals>;
+  let component: WithdrawalsPop;
+  let fixture: ComponentFixture<WithdrawalsPop>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Withdrawals]
+      imports: [WithdrawalsPop]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Withdrawals);
+    fixture = TestBed.createComponent(WithdrawalsPop);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

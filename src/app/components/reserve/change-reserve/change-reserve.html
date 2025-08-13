@@ -1,0 +1,99 @@
+<div class="cr-appbar">
+  <span class="cr-title"></span>
+  <button class="cr-add-btn" (click)="openAddCoinDialog()">Add Coins</button>
+</div>
+
+<div class="cr-content">
+  <!-- Pending Total Card -->
+
+  <!-- Info Cards -->
+  <div class="cr-denomination-cards">
+
+    <div class="cr-card cr-pending-total">
+      <div class="cr-card-value">ALL {{ pendingTotal }}</div>
+      <div class="cr-card-label">Pending</div>
+    </div>
+
+    <div *ngFor="let d of denominations" class="cr-card">
+      <div class="cr-card-value">{{ d.denomination }}</div>
+      <div class="cr-card-label">Available: {{ d.quantity }}</div>
+      <div class="cr-card-label">Total: ALL{{ d.amount }}</div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="cr-table-wrapper">
+    <table mat-table [dataSource]="changeReserveLogs" class="mat-elevation-z2 cr-table">
+      <ng-container matColumnDef="reserveLogId">
+        <th mat-header-cell *matHeaderCellDef>LogId</th>
+        <td mat-cell *matCellDef="let row"> {{ row.reserveLogId  }}</td>
+      </ng-container>
+      <!-- Denomination Column -->
+      <ng-container matColumnDef="denomination">
+        <th mat-header-cell *matHeaderCellDef>Denomination</th>
+        <td mat-cell *matCellDef="let row">ALL {{ row.denomination  }}</td>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell *matCellDef="let row">{{ row.quantity }}</td>
+      </ng-container>
+
+      <!-- Status Column with Chip -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+        <span class="cr-chip"
+              [ngClass]="{
+                'cr-chip-pending': row.status === 'PENDING',
+                'cr-chip-liquidified': row.status === 'LIQUIDIFIED'
+              }">
+          {{ row.status }}
+        </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reserveType">
+        <th mat-header-cell *matHeaderCellDef>reserveType</th>
+        <td mat-cell *matCellDef="let row">
+        <span class="cr-chip"
+              [ngClass]="{
+                'cr-chip-pending': row.reserveType === 'Pending',
+                'cr-chip-full': row.reserveType === 'Full',
+                'cr-chip-liquidified': row.reserveType === 'Liquidified'
+              }">
+          {{ row.reserveType }}
+        </span>
+        </td>
+      </ng-container>
+      <!-- Date Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Create Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdAt | date:'MMM d, y' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="statusChangedAt">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.statusChangedAt | date:'MMM d, y' }}</td>
+      </ng-container>
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+          <button mat-icon-button color="warn" (click)="delete(row.reserveLogId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 50]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

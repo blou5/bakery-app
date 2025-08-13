@@ -36,6 +36,16 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Person</mat-label>
+      <input matInput [(ngModel)]="person" name="person" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Notes</mat-label>
+      <input matInput [(ngModel)]="notes" name="notes" />
+    </mat-form-field>
+
     @if (this.reason() === '__add_new__') {
       <mat-form-field class="full-width">
         <mat-label>New Holiday</mat-label>
@@ -46,3 +56,4 @@
     <button mat-raised-button color="primary" type="submit">Submit</button>
   </form>
 </mat-card>
+

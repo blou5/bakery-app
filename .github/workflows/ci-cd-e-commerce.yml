@@ -1,0 +1,47 @@
+name: aragosta-app-cd
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "src/**"
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "src/**"
+  workflow_dispatch:
+    inputs:
+      sync:
+        description: "File synchronization"
+        required: true
+        default: "delta"
+
+jobs:
+  ci:
+    uses: blou5/continu-integ-deve/.github/workflows/app-ci-angular.yml@task-1/remove-deploy
+    with:
+      artifact-path: "dist/aragosta-app"
+    secrets:
+      SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+      GITHUB_REQ_TOKE: ${{secrets.GITHUB_TOKEN}}
+
+  cd-dev:
+    needs: ci
+    uses: blou5/continu-integ-deve/.github/workflows/common-cd.yml@task-1/remove-deploy
+    with:
+      environment: dev
+      docker-file-path: "Dockerfile-dev"
+      tag: "buziul/bakery-app:latest"
+      local-path: "arg-docker/dev"
+      remote-path: "/home/arg/app"
+      artifact-path: "dist/aragosta-app"
+      deploy-script: "
+        cd /home/arg/app &&
+        docker compose pull &&
+        docker compose up app -d  "
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      HOST: ${{secrets.HOST}}
+      SSH_USER: ${{secrets.SSH_USER}}
+      SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}

@@ -55,14 +55,11 @@ export class Production implements OnInit, AfterViewInit {
   private readonly dailyCashLogsService = inject(DailyCashLogsService);
   private dailyCashObject?: DailyCashLogInterface;
 
-  editName = '';
-  editQuantity: number | null = null;
   private cdRef = inject(ChangeDetectorRef);
   private readonly productService = inject(ProductService);
   editIndex: number | null = null;
   snackBar = inject(MatSnackBar);
-  editProductName = '';
-  editDate: Date | null = null;
+  filterDate: Date | null = null;
 
   constructor(private dialog: MatDialog) {
     this.filteredProducts.paginator = this.paginator;
@@ -81,11 +78,16 @@ export class Production implements OnInit, AfterViewInit {
       },
       error: (err) => console.error('Error saving log:', err)
     })
+    this.applyDateFilter(null);
 
+  }
+  clearFilterDate() {
+    this.filterDate = null;
+    this.applyDateFilter(null);
   }
 
   applyDateFilter(selectedDate: Date | null) {
-    if (!selectedDate) {
+    if (!selectedDate ) {
       this.filteredProducts.data = this.products;
       return;
     }

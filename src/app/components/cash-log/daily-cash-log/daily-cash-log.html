@@ -23,6 +23,22 @@
       />
     </mat-form-field>
 
+    <div class="expected-cash-group" style="display: flex; align-items: baseline; gap: 8px;">
+      <mat-form-field>
+        <mat-label>Expected Cash</mat-label>
+        <input
+          matInput
+          type="text"
+          [ngModel]="expectedCash"
+          name="expectedCash"
+          readonly
+        />
+      </mat-form-field>
+      <button mat-stroked-button color="primary" type="button" (click)="generateExpectedCash()">
+        Generate
+      </button>
+    </div>
+
     <mat-form-field>
       <mat-label>Closing Cash</mat-label>
       <input
@@ -32,6 +48,19 @@
         [ngModel]="closingCash()"
         (ngModelChange)="closingCash.set($event)"
         name="closingCash"
+        appNumericOnlyDirective
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cash Withdrawn</mat-label>
+      <input
+        matInput
+        type="text"
+        inputmode="decimal"
+        [ngModel]="cashWithdrawn()"
+        (ngModelChange)="cashWithdrawn.set($event)"
+        name="cashWithdrawn"
         appNumericOnlyDirective
       />
     </mat-form-field>

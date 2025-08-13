@@ -129,8 +129,8 @@ export class Expenses implements OnInit {
       }
     })
     this.dialog.open(EpensceCell, {
-      width: '100vw',
-      maxWidth: '100vw',
+      width: 'auto',
+      // maxWidth: '100vw',
       height: '80vh',
       data: {
         items: expense
@@ -174,7 +174,6 @@ export class Expenses implements OnInit {
     console.log(i.expenseId)
     this.expenseService.delete(i.expenseId).subscribe({
       next: () => {
-
         this.snackBar.open('Expense deleted successfully', 'Close', {duration: 3000});
         this.loadExpenses()
 

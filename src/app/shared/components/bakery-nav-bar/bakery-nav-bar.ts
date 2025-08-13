@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {DailyCashLog} from '../../../components/daily-cash-log/daily-cash-log';
-import {Withdrawals} from '../../../components/withdrawals/withdrawals';
-import {ChangeReserve} from '../../../components/change-reserve/change-reserve';
+import {DailyCashLog} from '../../../components/cash-log/daily-cash-log/daily-cash-log';
+import {WithdrawalsPop} from '../../../components/withdrawals/withdrawals-pop/withdrawals-pop.component';
+import {ChangeReserve} from '../../../components/reserve/change-reserve/change-reserve';
 import {Expenses} from '../../../components/expense/expenses/expenses';
 import {Production} from '../../../components/products/production/production';
 import {UnsuldProducts} from '../../../components/unsold-products/unsuld-products/unsuld-products';
@@ -15,7 +15,7 @@ import {UnsuldProducts} from '../../../components/unsold-products/unsuld-product
   imports: [
     RouterLink,
     DailyCashLog,
-    Withdrawals,
+    WithdrawalsPop,
     ChangeReserve,
     Expenses,
     Production,

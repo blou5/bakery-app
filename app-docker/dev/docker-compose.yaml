@@ -1,0 +1,12 @@
+services:
+  app:
+    image: buziul/arg-app:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - arg
+
+networks:
+  arg:
+    driver: bridge

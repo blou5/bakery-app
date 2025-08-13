@@ -81,7 +81,6 @@ export class AddProduction implements OnInit {
       next: (value: ProductionInterface) => {
         this.createdProduction = value;
         this.dialogRef.close(this.createdProduction)
-        console.log(value)
       },
       error: err => console.error(err)
     })

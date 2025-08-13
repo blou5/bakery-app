@@ -1,24 +1,15 @@
 version: "3.8"
-
 services:
   angular-nginx:
     build:
       context: ../..
       dockerfile: Dockerfile
-    volumes:
-        - ../../dist/bakery-app/browser:/usr/share/nginx/html
     ports:
-      - "4200:4200"   # LocalPort:ContainerPort
+      - "4200:80"          # host:container
     restart: unless-stopped
     container_name: bakery-app
-    networks:
-      - arg
-
-
-volumes:
-  pgdata:
+    networks: [arg]
 
 networks:
   arg:
     driver: bridge
-
