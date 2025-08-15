@@ -15,7 +15,7 @@ import {UnsoldProductUpdateInterface} from '../models/update/unsold-product-upda
 export class UnsoldProductService{
 
 
-  private readonly apiUrl = 'http://localhost:8080/api/unsold-products'; // Proxy path
+  private readonly apiUrl = 'http://178.18.249.39:8080/api/unsold-products'; // Proxy path
 
   constructor(private http: HttpClient) {}
 

@@ -13,7 +13,7 @@ import {WithdrawalsUpdateModel} from '../models/update/withdrawals-update.model'
   })
 export class WithdrawService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/withdrawals'; // Proxy path
+  private readonly apiUrl = 'http://178.18.249.39:8080/api/withdrawals'; // Proxy path
 
   constructor(private http: HttpClient) {}
 

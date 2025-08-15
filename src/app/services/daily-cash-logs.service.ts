@@ -10,7 +10,7 @@ import {DailyCashLogCreateInterface} from '../models/create/daily-cash-log-creat
 })
 export class DailyCashLogsService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/daily-cash'; // Proxy path
+  private readonly apiUrl = 'http://178.18.249.39:8080/api/daily-cash'; // Proxy path
 
   constructor(private http: HttpClient) {}
 

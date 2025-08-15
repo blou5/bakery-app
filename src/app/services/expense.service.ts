@@ -10,7 +10,7 @@ import {ExpenseHeaderUpdate} from '../models/update/expense-header-update';
   })
 export class ExpenseService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/expenses'; // Proxy path
+  private readonly apiUrl = 'http://178.18.249.39:8080/api/expenses'; // Proxy path
 
   constructor(private http: HttpClient) {}
 

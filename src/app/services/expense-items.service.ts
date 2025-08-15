@@ -10,7 +10,7 @@ import {ExpenseUpdateItemInterface} from '../models/update/expense-update-item-m
     providedIn: 'root',
   })
 export class ExpenseItemsService{
-  private readonly apiUrl = 'http://localhost:8080/api/expenseItem'; // Proxy path
+  private readonly apiUrl = 'http://178.18.249.39:8080/api/expenseItem'; // Proxy path
 
 
   constructor(private http: HttpClient) {}

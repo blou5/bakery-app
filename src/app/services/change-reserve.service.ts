@@ -12,7 +12,7 @@ import {Page} from '../models/page/page.model';
   })
 export class ChangeReserveService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/reserves'; // Proxy path
+  private readonly apiUrl = 'http://178.18.249.39/:8080/api/reserves'; // Proxy path
 
   constructor(private http: HttpClient) {
   }
