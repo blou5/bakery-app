@@ -29,6 +29,6 @@ COPY ./config/dev/default.conf /etc/nginx/conf.d/default.conf
 COPY ./config/prod/compression.conf /etc/nginx/conf.d/compression.conf
 
 # Nginx listens on 80 (and 443 for TLS/HTTP3)
-EXPOSE 80
+EXPOSE 4200
 # EXPOSE 443/tcp
 # EXPOSE 443/udp
