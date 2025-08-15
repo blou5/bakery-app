@@ -30,7 +30,7 @@ jobs:
     uses: blou5/continu-integ-deve/.github/workflows/common-cd.yml@task-1/remove-deploy
     with:
       environment: dev
-      docker-file-path: "Dockerfile-dev"
+      docker-file-path: "Dockerfile"
       tag: "buziul/bakery-app:latest"
       local-path: "app-docker/dev"
       remote-path: "/home/bakery/app"
