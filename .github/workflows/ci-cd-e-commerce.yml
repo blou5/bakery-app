@@ -36,7 +36,7 @@ jobs:
       remote-path: "/home/bakery/app"
       artifact-path: "dist/bakery-app"
       deploy-script: "
-        cd /home/arg/app &&
+        cd /home/bakery/app &&
         docker compose pull &&
         docker compose up app -d  "
     secrets:
