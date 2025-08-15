@@ -1,6 +1,6 @@
 services:
   app:
-    image: buziul/arg-app:latest
+    image: buziul/bakery-app:latest
     ports:
       - "80:80"
       - "443:443"
