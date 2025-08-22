@@ -4,13 +4,15 @@ import {ExpenseItemInterface} from '../models/create/expense-item.model';
 import {Product, } from '../models/product.model';
 import {ProductCreateInterface} from '../models/create/product-create';
 import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
 @Injectable(
   {
     providedIn: 'root',
   })
 export class ProductService{
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/product'; // Proxy path
+  private readonly apiUrl = `${this.base}/api/product`; // Proxy path
 
 
   constructor(private http: HttpClient) {}

@@ -20,10 +20,11 @@ import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
 import {WithdrawModel} from '../../../models/withdraw.model';
 import {WithdrawService} from '../../../services/withdraw.service';
 import {MatIcon} from '@angular/material/icon';
-import {MatFormField, MatInput} from '@angular/material/input';
+import {MatFormField, MatInput, MatSuffix} from '@angular/material/input';
 
 import {FormsModule} from '@angular/forms';
 import {WithdrawalsUpdateModel} from '../../../models/update/withdrawals-update.model';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-withdrawals-table',
@@ -46,7 +47,11 @@ import {WithdrawalsUpdateModel} from '../../../models/update/withdrawals-update.
     MatFormField,
     FormsModule,
     MatInput,
-    NgIf
+    NgIf,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatSuffix
   ],
   templateUrl: './withdrawals-table.html',
   standalone: true,
@@ -59,10 +64,47 @@ export class WithdrawalsTable implements OnInit {
   private readonly dailyCashLogsService = inject(DailyCashLogsService);
   private readonly withdrawService = inject(WithdrawService);
   private readonly cdRef = inject(ChangeDetectorRef);
-   editRow!: WithdrawalsUpdateModel ;
+  editRow!: WithdrawalsUpdateModel;
   editIndex: any;
 
+
+  withdrawal: WithdrawModel[] = [];           // your full list (already used)
+  filteredWithdrawals: WithdrawModel[] = [];   // what the table shows
+  filterDate: Date | null = null;
+
   constructor(private dialog: MatDialog) {
+  }
+
+  private refreshViewData(): void {
+
+    this.filterDate
+      ? this.filterByDate(this.filterDate)
+      : this.loadDate();
+  }
+
+  applyDateFilter(date: Date | null): void {
+    // keep the picked date (or null)
+    this.filterDate = date;
+    this.refreshViewData();
+  }
+
+  clearDateFilter(): void {
+    this.filterDate = null;
+    this.refreshViewData();
+  }
+
+
+  private filterByDate(date: Date) {
+    // compare by calendar day    const dateOnly = new Date().toISOString().split('T')[0];
+    const target = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString().split('T')[0];
+    this.withdrawService.getFilteredWithdraws(target).subscribe({
+      next:value => {
+        this.withdrawals= value;
+        this.cdRef.markForCheck()
+      },
+      error: err => console.error(err)
+    })
+   ;
   }
 
   openWithdrawalDialog() {
@@ -82,25 +124,20 @@ export class WithdrawalsTable implements OnInit {
   }
 
 
-  delete(id : number,row: any){
+  delete(id: number, row: any) {
     this.withdrawService.delete(row.withdrawalId).subscribe({
-      next:value => {
-        this.withdrawals=this.withdrawals.filter(value1 => value1.withdrawalId !== row.withdrawalId);
+      next: value => {
+        this.withdrawals = this.withdrawals.filter(value1 => value1.withdrawalId !== row.withdrawalId);
         this.cdRef.markForCheck();
       },
-      error :err => console.error(err)
+      error: err => console.error(err)
     })
 
   }
 
 
   ngOnInit(): void {
-    this.withdrawService.getAll().subscribe({
-      next: value => {
-        this.withdrawals = value;
-        this.cdRef.markForCheck()
-      }
-    })
+    this.loadDate()
     this.dailyCashLogsService.getLastCashLog().subscribe({
       next: (response) => {
 
@@ -112,23 +149,31 @@ export class WithdrawalsTable implements OnInit {
     this.cdRef.markForCheck()
   }
 
-  startEdit(i:number, row:any) {
+  startEdit(i: number, row: any) {
     this.editIndex = i;
     this.editRow = row;
-    this.editRow.logId= row.log.logId;
-    console.log(this.editRow)
+    this.editRow.logId = row.log.logId;
 
+
+  }
+  loadDate(){
+    this.withdrawService.getAll().subscribe({
+      next: value => {
+        this.withdrawals = value;
+        this.cdRef.markForCheck()
+      }
+    })
   }
 
   saveEdit() {
 
-    this.withdrawService.update(this.editRow.withdrawalId,this.editRow).subscribe({
+    this.withdrawService.update(this.editRow.withdrawalId, this.editRow).subscribe({
       next: value => {
-         this.withdrawals.push(value)
-        this.editIndex=null;
+        this.withdrawals.push(value)
+        this.editIndex = null;
         this.cdRef.markForCheck()
       },
-      error : err => console.error(err)
+      error: err => console.error(err)
     })
   }
 

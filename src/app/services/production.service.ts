@@ -6,14 +6,16 @@ import {ExpenseHeaderUpdate} from '../models/update/expense-header-update';
 import {ProductionInterface} from '../models/production-model';
 import {ProductionCreateInterface} from '../models/create/production-create.model';
 import {ProductionUpdateModel} from '../models/update/production-update.model';
+import {environment} from '../../environments/environment';
 
 @Injectable(
   {
     providedIn: 'root',
   })
 export class ProductionService {
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/production'; // Proxy path
+  private readonly apiUrl = `${this.base}/api/production`; // Proxy path
 
   constructor(private http: HttpClient) {}
 

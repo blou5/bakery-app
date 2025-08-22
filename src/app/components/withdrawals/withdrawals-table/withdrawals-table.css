@@ -36,7 +36,7 @@ th.mat-header-cell, td.mat-cell {
   font-size: 0.96em;
 }
 mat-form-field {
-  flex: 1 1 180px;
+  flex: 1 1 1px;
   min-width: 140px;
 }
 
@@ -83,4 +83,59 @@ table.mat-table {
 /* Optional: For the table itself */
 .full-width-table {
   table-layout: fixed;
+}
+.filters-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+  flex-wrap: wrap; /* helps prevent overflow on medium screens */
+}
+
+/* Date field takes flexible space */
+.filter-field {
+  flex: 1 1 40%;
+  min-width: 240px; /* keeps the date input usable on tighter widths */
+}
+
+/* Action buttons container */
+.filters-actions {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 40%;
+  justify-content: flex-end;
+  min-width: 240px;
+}
+
+/* Optional: size hints for buttons on desktop */
+.clear-btn {
+  flex: 0 0 120px;
+}
+.add-btn {
+  flex: 1 1 auto; /* grows a bit to balance with the date field */
+}
+
+/* Full responsiveness for mobile */
+@media (max-width: 640px) {
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-field,
+  .filters-actions {
+    flex: 1 1 auto;
+    min-width: 100%;
+  }
+
+  .filters-actions {
+    /*flex-direction: column;*/
+    justify-content: initial; 
+  }
+
+  .clear-btn,
+  .add-btn {
+    width: 100%;
+  }
 }

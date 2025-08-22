@@ -92,7 +92,6 @@ export class CashLogTable {
   }
 
   showCalculation(row: any) {
-
   }
 
   deleteLog(index: number, log: DailyCashLogInterface) {

@@ -2,18 +2,20 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ExpenseHeaderInterface} from '../models/create/expense-header.model';
-import {ExpenseHeaderUpdate} from '../models/update/expense-header-update';
 import {WithdrawModel} from '../models/withdraw.model';
 import {WithdrawCreateModel} from '../models/create/withdraw-create.model';
 import {WithdrawalsUpdateModel} from '../models/update/withdrawals-update.model';
+import {environment} from '../../environments/environment';
+import {DailyCashLogInterface} from '../models/daily-cash-log.model';
 
 @Injectable(
   {
     providedIn: 'root',
   })
 export class WithdrawService {
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/withdrawals'; // Proxy path
+  private readonly apiUrl = `${this.base}/api/withdrawals`; // Proxy path
 
   constructor(private http: HttpClient) {}
 
@@ -35,6 +37,11 @@ export class WithdrawService {
 
   update(id:number,update: WithdrawalsUpdateModel ): Observable<WithdrawModel>{
     return this.http.put<WithdrawModel>(`${this.apiUrl}/${id}`, update);
+  }
+
+  getFilteredWithdraws(date:string): Observable<WithdrawModel[]>{
+
+    return this.http.get<WithdrawModel[]>(`${this.apiUrl}/filteredWithdrawals/`+date);
   }
 
 }

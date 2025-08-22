@@ -4,13 +4,15 @@ import {Observable} from 'rxjs';
 import {ExpenseHeaderInterface} from '../models/create/expense-header.model';
 import {ExpenseItemInterface} from '../models/create/expense-item.model';
 import {ExpenseUpdateItemInterface} from '../models/update/expense-update-item-model';
+import {environment} from '../../environments/environment';
 
 @Injectable(
   {
     providedIn: 'root',
   })
 export class ExpenseItemsService{
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/expenseItem'; // Proxy path
+  private readonly base = environment.apiBase;
+  private readonly apiUrl = `${this.base}/api/expenseItem`; // Proxy path
 
 
   constructor(private http: HttpClient) {}

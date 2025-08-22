@@ -5,14 +5,16 @@ import {ChangeReserveLogCreateInterface} from '../models/create/change-reserve-c
 import {ChangeReserveLogInterface} from '../models/change-reserve.modle';
 import {ChangeReserveResponseModel} from '../models/change-reserve-response.model';
 import {Page} from '../models/page/page.model';
+import {environment} from '../../environments/environment';
 
 @Injectable(
   {
     providedIn: 'root',
   })
 export class ChangeReserveService {
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39/:8080/api/reserves'; // Proxy path
+  private readonly apiUrl = `${this.base}/api/reserves`; // Proxy path
 
   constructor(private http: HttpClient) {
   }

@@ -81,10 +81,7 @@ export class Production implements OnInit, AfterViewInit {
     this.applyDateFilter(null);
 
   }
-  clearFilterDate() {
-    this.filterDate = null;
-    this.applyDateFilter(null);
-  }
+
 
   applyDateFilter(selectedDate: Date | null) {
     if (!selectedDate ) {

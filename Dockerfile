@@ -9,7 +9,7 @@ RUN apk add --no-cache brotli
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN npm run build:prod
 
 # Precompress only text assets inside the browser folder
 RUN cd /app/dist && find . -type f -exec brotli {} \;

@@ -7,6 +7,7 @@ import {Injectable} from '@angular/core';
 import {UnsoldProductInterface} from '../models/unsold-product.model';
 import {UnsoldProductCreateInterface} from '../models/create/unsold-product-create.model';
 import {UnsoldProductUpdateInterface} from '../models/update/unsold-product-update.model';
+import {environment} from '../../environments/environment';
 
 @Injectable(
   {
@@ -14,8 +15,9 @@ import {UnsoldProductUpdateInterface} from '../models/update/unsold-product-upda
   })
 export class UnsoldProductService{
 
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/unsold-products'; // Proxy path
+  private readonly apiUrl = `${this.base}/api/unsold-products`; // Proxy path
 
   constructor(private http: HttpClient) {}
 

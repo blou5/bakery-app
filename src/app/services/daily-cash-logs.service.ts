@@ -3,14 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DailyCashLogInterface} from '../models/daily-cash-log.model';
 import {DailyCashLogCreateInterface} from '../models/create/daily-cash-log-create';
+import {environment} from '../../environments/environment';
 
 @Injectable(
   {
   providedIn: 'root',
 })
 export class DailyCashLogsService {
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/daily-cash'; // Proxy path
+  private readonly apiUrl = `${this.base}/api/daily-cash`; // Proxy path
 
   constructor(private http: HttpClient) {}
 
@@ -36,7 +38,7 @@ export class DailyCashLogsService {
 
   getLastCashLog(): Observable<DailyCashLogInterface>{
     const dateOnly = new Date().toISOString().split('T')[0];
-
+      console.log(dateOnly)
     return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/findLast/`+dateOnly);
   }
 

@@ -3,14 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ExpenseHeaderInterface} from '../models/create/expense-header.model';
 import {ExpenseHeaderUpdate} from '../models/update/expense-header-update';
+import {environment} from '../../environments/environment';
 
 @Injectable(
   {
     providedIn: 'root',
   })
 export class ExpenseService {
+  private readonly base = environment.apiBase;
 
-  private readonly apiUrl = 'http://178.18.249.39:8080/api/expenses'; // Proxy path
+  private readonly apiUrl =`${this.base}/api/expenses`; // Proxy path
 
   constructor(private http: HttpClient) {}
 

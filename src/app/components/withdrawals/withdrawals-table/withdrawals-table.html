@@ -1,8 +1,33 @@
 
 <div class="cash-log-table-wrapper">
-<button mat-flat-button color="primary" class="full-width-button" (click)="openWithdrawalDialog()">
-  Add Withdrawal
-</button>
+  <div class="filters-row">
+    <!-- Date filter -->
+    <mat-form-field appearance="fill" class="filter-field">
+
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [ngModel]="filterDate"
+        (dateChange)="applyDateFilter($event.value)"
+        (dateInput)="applyDateFilter($event.value)"
+        placeholder="Pick a date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Actions -->
+    <div class="filters-actions">
+      <button mat-stroked-button class="clear-btn" (click)="clearDateFilter()">
+        Clear
+      </button>
+
+      <button mat-flat-button color="primary" class="add-btn" (click)="openWithdrawalDialog()">
+        Add Withdrawal
+      </button>
+    </div>
+  </div>
+
 
 
   <table mat-table [dataSource]="withdrawals" class="mat-elevation-z1 full-width-table">
