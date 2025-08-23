@@ -111,7 +111,6 @@ export class ChangeReserve implements OnInit {
         console.log(index)
         this.changeReserveLogs = this.changeReserveLogs.filter(p => p.reserveLogId !== index);
         this.cdRef.markForCheck();
-
       }
     })
   }
@@ -162,7 +161,8 @@ export class ChangeReserve implements OnInit {
       next :value => {
         this.changeReserveLogs = value.content;   // Page<CashLog> content
         this.totalItems = value.totalElements
-      }
+      },
+      error : err => console.error(err)
     });
   }
 
