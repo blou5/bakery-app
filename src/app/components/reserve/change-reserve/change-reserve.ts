@@ -149,18 +149,17 @@ export class ChangeReserve implements OnInit {
     // });
     this.loadData()
     this.changeReserveService.getPending().subscribe({
-      next: value => {
-        this.denominations = value;
-      },
+      next: v => { this.denominations = v; this.cdRef.markForCheck(); },
       error: err => console.error(err)
-    })
+    });
   }
 
   loadData() {
     this.changeReserveService.getAll(this.pageIndex, this.pageSize).subscribe({
       next :value => {
         this.changeReserveLogs = value.content;   // Page<CashLog> content
-        this.totalItems = value.totalElements
+        this.totalItems = value.totalElements;
+          this.cdRef.markForCheck();
       },
       error : err => console.error(err)
     });
