@@ -11,7 +11,8 @@
     "test:unit:ci": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng test --no-watch --browsers ChromeHeadlessCI --source-map=false --watch false",
     "serve:ssr:bakery-app": "node dist/bakery-app/server/server.mjs",
     "start": "ng serve --host 0.0.0.0 --port 4200 ",
-    "start:prod": "ng serve --configuration production"
+    "start:prod": "ng serve --configuration production",
+    "start:dev": "ng serve --configuration development"
   },
   "private": true,
   "dependencies": {
@@ -21,11 +22,13 @@
     "@angular/core": "^20.0.0",
     "@angular/forms": "^20.0.0",
     "@angular/material": "^20.0.1",
+    "@angular/material-moment-adapter": "^20.2.0",
     "@angular/platform-browser": "^20.0.0",
     "@angular/platform-server": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@angular/ssr": "^20.0.0",
     "express": "^5.1.0",
+    "moment": "^2.30.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

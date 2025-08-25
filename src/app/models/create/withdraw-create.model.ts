@@ -1,7 +1,7 @@
 import {DailyCashLogInterface} from '../daily-cash-log.model';
 
 export interface WithdrawCreateModel {
-  log: DailyCashLogInterface;
+  log: number;
   amount: number;
   reason: string;
   date: Date;

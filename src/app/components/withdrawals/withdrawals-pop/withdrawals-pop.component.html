@@ -3,8 +3,8 @@
     <mat-form-field>
       <mat-label>Date</mat-label>
       <input matInput [matDatepicker]="picker"
-             [value]="date()"
-             (dateChange)="date.set($event.value)"
+             [value]="date"
+             (dateChange)="onDateChange($event.value)"
              name="date" readonly/>
       <mat-datepicker-toggle matIconSuffix [for]="picker">
 

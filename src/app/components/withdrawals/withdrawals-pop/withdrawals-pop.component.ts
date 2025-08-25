@@ -14,6 +14,8 @@ import {NumericOnlyDirective} from '../../../shared/directives/numeric-only-dire
 import {WithdrawCreateModel} from '../../../models/create/withdraw-create.model';
 import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
 import {WithdrawService} from '../../../services/withdraw.service';
+import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-withdrawals-pop',
@@ -38,16 +40,10 @@ import {WithdrawService} from '../../../services/withdraw.service';
   templateUrl: './withdrawals-pop.component.html',
   standalone: true,
   styleUrl: './withdrawals-pop.component.css',
-  providers: [
-    provideNativeDateAdapter(),
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: {appearance: 'outline'},
-    },
-  ],
+
 })
 export class WithdrawalsPop {
-  date = signal<Date>(new Date());
+  date: Date = new Date();
   amount = signal<number>(0);
   reason = signal<string>('');
   reasons = ['Purchase', 'Refund', 'Salary', 'Misc'];
@@ -56,8 +52,10 @@ export class WithdrawalsPop {
   person: string = '';
   notes: string = '';
   withdrawCreateModel ?: WithdrawCreateModel;
+  logIdNumber: number=0;
   private readonly withdrawService = inject(WithdrawService);
-
+  private readonly dailyCashLogsService = inject(DailyCashLogsService);
+  protected snackBar = inject(MatSnackBar);
   constructor(private dialogRef: MatDialogRef<WithdrawalsPop>,
               @Inject(MAT_DIALOG_DATA) public data: { log: DailyCashLogInterface }) {
   }
@@ -97,8 +95,8 @@ export class WithdrawalsPop {
       notes: this.notes,
       person: this.person,
       reason: this.reason(),
-      log: this.data.log,
-      date: this.date()
+      log: this.logIdNumber,
+      date: this.date
     }
     console.log(this.withdrawCreateModel)
     this.withdrawService.add(this.withdrawCreateModel).subscribe({
@@ -110,4 +108,21 @@ export class WithdrawalsPop {
 
   }
 
+  protected onDateChange(date: Date) {
+    // Fetch the log for the chosen day
+
+    this.dailyCashLogsService.getSelectedDate(date).subscribe({
+      next: (value:DailyCashLogInterface) => {
+        this.logIdNumber = value.logId
+        console.log(this.logIdNumber)
+      },
+      error: err => {
+        console.error(err);
+        this.snackBar.open('No log for selected date.', 'Close', {
+          duration: 1200, panelClass: ['snackbar-error']
+        });
+      },
+
+    });
+  }
 }

@@ -42,6 +42,11 @@ export class DailyCashLogsService {
     return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/findLast/`+dateOnly);
   }
 
+  getSelectedDate(date:Date): Observable<DailyCashLogInterface>{
+    const dateOnly = date.toISOString().split('T')[0];
+    console.log(dateOnly)
+    return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/findLast/`+dateOnly);
+  }
 
   getEstimatedMoney(id:number):Observable<number>{
     return this.http.get<number>(`${this.apiUrl}/getEstimatedMoney/${id}`);

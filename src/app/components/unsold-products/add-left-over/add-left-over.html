@@ -12,6 +12,18 @@
     <input matInput type="number" [(ngModel)]="quantity" />
   </mat-form-field>
 
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [(ngModel)]="date"
+      (dateChange)="onDateChange($event.value)"
+      placeholder="Choose a date"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
 </mat-dialog-content>
 

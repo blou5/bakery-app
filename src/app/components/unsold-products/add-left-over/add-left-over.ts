@@ -13,6 +13,9 @@ import {ProductService} from '../../../services/product-service';
 import {UnsoldProductService} from '../../../services/unsold-product.service';
 import {UnsoldProductCreateInterface} from '../../../models/create/unsold-product-create.model';
 import {UnsoldProductInterface} from '../../../models/unsold-product.model';
+import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
 
 @Component({
   selector: 'app-add-left-over',
@@ -33,12 +36,14 @@ import {UnsoldProductInterface} from '../../../models/unsold-product.model';
 })
 export class AddLeftOver implements OnInit {
   product = '';
-  quantity: number  = 0;
-  date: Date | null = null;
-  protected productId!:number;
-  protected unsoldProduct!:UnsoldProductCreateInterface;
-  protected unsoldSavedProduct!:UnsoldProductInterface;
-
+  quantity: number = 0;
+  date: Date = new Date();
+  logIdNumber: number = 0;
+  private readonly dailyCashLogsService = inject(DailyCashLogsService);
+  protected productId!: number;
+  protected unsoldProduct!: UnsoldProductCreateInterface;
+  protected unsoldSavedProduct!: UnsoldProductInterface;
+  protected snackBar = inject(MatSnackBar);
 
   protected products!: Product[];
   private readonly cdRef = inject(ChangeDetectorRef);
@@ -66,14 +71,13 @@ export class AddLeftOver implements OnInit {
   }
 
   save() {
-    this.unsoldProduct ={
-      productId:this.productId,
-      logId:this.data.logId,
+    this.unsoldProduct = {
+      productId: this.productId,
+      logId: this.logIdNumber,
       quantityUnsold: this.quantity,
-      unitCost:0,
-
+      unitCost: 0,
     }
-    console.log(this.unsoldProduct)
+
     // this.unsoldProductService.add()
     this.unsoldProductService.add(this.unsoldProduct).subscribe({
       next: value => {
@@ -84,8 +88,24 @@ export class AddLeftOver implements OnInit {
     })
 
 
-
   }
 
+  onDateChange(date: Date) {
+    // Fetch the log for the chosen day
 
+    this.dailyCashLogsService.getSelectedDate(date).subscribe({
+      next: (value: DailyCashLogInterface) => {
+        this.logIdNumber = value.logId
+        console.log(this.logIdNumber)
+      },
+      error: err => {
+        console.error(err);
+
+        this.snackBar.open('No log for selected date.', 'Close', {
+          duration: 1200, panelClass: ['snackbar-error']
+        });
+      },
+
+    });
+  }
 }
