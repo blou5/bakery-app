@@ -30,7 +30,7 @@ import {ChangeReserveLogInterface} from '../../../models/change-reserve.modle';
 })
 export class AddCoinDialog {
   form: FormGroup;
-  denominations = [5 ,10, 20, 50, 100];
+  denominations = [5 ,10, 20, 50, 100,200];
   private reserveService = inject(ChangeReserveService);
   types = ['Addition', 'Subtraction'];
   private change ?: ChangeReserveLogCreateInterface;

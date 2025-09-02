@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
 
     { provide: DateAdapter, useClass: UtcDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+    // { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
     provideRouter(routes), provideClientHydration(withEventReplay())
   ]
 };
