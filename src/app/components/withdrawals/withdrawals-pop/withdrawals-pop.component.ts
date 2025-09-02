@@ -1,4 +1,4 @@
-import {Component, Inject, inject, signal} from '@angular/core';
+import {Component, Inject, inject, OnInit, signal} from '@angular/core';
 import {MatCard} from '@angular/material/card';
 import {MatFormField, MatInput, MatLabel, MatSuffix} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
@@ -6,7 +6,7 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
 import {MatButton} from '@angular/material/button';
 import {NgForOf} from '@angular/common';
 import {MatSelect} from '@angular/material/select';
-import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatOption, provideNativeDateAdapter} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AddHolidayDialog} from '../../../shared/components/add-holiday-dialog/add-holiday-dialog';
 import {NumericOnlyDirective} from '../../../shared/directives/numeric-only-directive';
@@ -16,6 +16,7 @@ import {WithdrawService} from '../../../services/withdraw.service';
 import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {UtcDateAdapter} from '../../../shared/directives/utc-date-adapter';
 
 @Component({
   selector: 'app-withdrawals-pop',
@@ -41,16 +42,12 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
   standalone: true,
   styleUrl: './withdrawals-pop.component.css',
   providers: [
-    provideNativeDateAdapter(), // ✅ fix here
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: {appearance: 'outline'},
-    },
-  ],
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ]
 
 })
-export class WithdrawalsPop {
-  date: Date = new Date();
+export class WithdrawalsPop implements OnInit{
+  date = new Date();
   amount = signal<number>(0);
   reason = signal<string>('');
   reasons = ['Purchase', 'Refund', 'Salary', 'Misc'];
@@ -132,4 +129,11 @@ export class WithdrawalsPop {
 
     });
   }
+
+  ngOnInit(): void {
+
+    this.onDateChange(this.date);
+  }
+
+
 }

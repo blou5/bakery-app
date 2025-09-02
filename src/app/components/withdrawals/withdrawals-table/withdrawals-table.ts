@@ -25,6 +25,7 @@ import {MatFormField, MatInput, MatSuffix} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {WithdrawalsUpdateModel} from '../../../models/update/withdrawals-update.model';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 
 @Component({
   selector: 'app-withdrawals-table',
@@ -55,7 +56,11 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
   ],
   templateUrl: './withdrawals-table.html',
   standalone: true,
-  styleUrl: './withdrawals-table.css'
+  styleUrl: './withdrawals-table.css',
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ]
+
 })
 export class WithdrawalsTable implements OnInit {
 
@@ -96,7 +101,9 @@ export class WithdrawalsTable implements OnInit {
 
   private filterByDate(date: Date) {
     // compare by calendar day    const dateOnly = new Date().toISOString().split('T')[0];
-    const target = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString().split('T')[0];
+    const target =  new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+      .toISOString()
+      .split('T')[0];
     this.withdrawService.getFilteredWithdraws(target).subscribe({
       next:value => {
         this.withdrawals= value;
