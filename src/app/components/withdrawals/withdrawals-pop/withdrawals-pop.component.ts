@@ -7,7 +7,6 @@ import {MatButton} from '@angular/material/button';
 import {NgForOf} from '@angular/common';
 import {MatSelect} from '@angular/material/select';
 import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AddHolidayDialog} from '../../../shared/components/add-holiday-dialog/add-holiday-dialog';
 import {NumericOnlyDirective} from '../../../shared/directives/numeric-only-directive';
@@ -16,6 +15,7 @@ import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
 import {WithdrawService} from '../../../services/withdraw.service';
 import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-withdrawals-pop',
@@ -40,6 +40,13 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './withdrawals-pop.component.html',
   standalone: true,
   styleUrl: './withdrawals-pop.component.css',
+  providers: [
+    provideNativeDateAdapter(), // ✅ fix here
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {appearance: 'outline'},
+    },
+  ],
 
 })
 export class WithdrawalsPop {

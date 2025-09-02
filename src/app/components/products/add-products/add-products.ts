@@ -1,13 +1,11 @@
-import {Component, inject, Inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {ProductionService} from '../../../services/production.service';
 import {ProductService} from '../../../services/product-service';
-import {Product} from '../../../models/product.model';
 import {ProductCreateInterface} from '../../../models/create/product-create';
 
 @Component({
