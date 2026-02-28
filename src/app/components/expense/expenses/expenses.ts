@@ -84,7 +84,10 @@ export class Expenses implements OnInit {
 
   addExpense() {
 
-    const formattedDate = this.date()?.toISOString().split('T')[0];
+    const d = this.date();
+    const formattedDate = d
+      ? new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10)
+      : undefined;
     console.log(formattedDate)
     const payload: ExpenseHeaderInterface = {
       logId: this.dailyCashObject?.logId,
