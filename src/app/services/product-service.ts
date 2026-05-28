@@ -21,11 +21,11 @@ export class ProductService{
     return this.http.get<Product[]>(`${this.apiUrl}/findAll`);
   }
 
-  getById(id: number): Observable<ExpenseItemInterface> {
-    return this.http.get<ExpenseItemInterface>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
-  add(header: ProductCreateInterface): Observable<ProductCreateInterface> {
+  add(header: ProductCreateInterface): Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/add`, header);
   }
 

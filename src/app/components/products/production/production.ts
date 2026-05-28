@@ -12,7 +12,6 @@ import {AddProduction} from '../add-production/add-production';
 import {ProductList} from '../product-list/product-list';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {MatPaginator} from '@angular/material/paginator';
-import {provideNativeDateAdapter} from '@angular/material/core';
 import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
 import {ProductionService} from '../../../services/production.service';
 import {ProductionInterface} from '../../../models/production-model';
@@ -21,6 +20,7 @@ import {ProductService} from '../../../services/product-service';
 import {Product} from '../../../models/product.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ProductionUpdateModel} from '../../../models/update/production-update.model';
+import {toDateOnly} from '../../../shared/utils/date-only';
 
 @Component({
   selector: 'app-production',
@@ -40,7 +40,6 @@ import {ProductionUpdateModel} from '../../../models/update/production-update.mo
   standalone: true,
   styleUrl: './production.css',
   providers: [
-    provideNativeDateAdapter(), // ✅ fix here
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {appearance: 'outline'},
@@ -89,9 +88,9 @@ export class Production implements OnInit, AfterViewInit {
       return;
     }
 
-    const selectedDateOnly = new Date(selectedDate).setHours(0, 0, 0, 0);
+    const selectedDateOnly = toDateOnly(selectedDate);
     this.filteredProducts.data = this.products.filter(p => {
-      const productDate = new Date(p.productionDate).setHours(0, 0, 0, 0);
+      const productDate = toDateOnly(p.productionDate);
       return productDate === selectedDateOnly;
     });
 

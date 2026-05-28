@@ -1,3 +1,5 @@
+import {DateOnly} from '../shared/utils/date-only';
+
 export interface UnsoldProductInterface{
   unsoldId : number;
   logId: number;
@@ -5,6 +7,6 @@ export interface UnsoldProductInterface{
   productName:string;
   quantityUnsold:number;
   unitCost: number;
-  logDate: Date;
+  logDate: DateOnly;
 }
 

@@ -6,7 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
-import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
+import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from '@angular/material/form-field';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import {NumericOnlyDirective} from '../../../shared/directives/numeric-only-dire
 import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
 import {DailyCashLogCreateInterface} from '../../../models/create/daily-cash-log-create';
 import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
+import {toDateOnly, toPickerDate} from '../../../shared/utils/date-only';
 
 @Component({
   selector: 'app-daily-cash-log',
@@ -42,7 +43,6 @@ import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
   standalone: true,
   styleUrl: './daily-cash-log.css',
   providers: [
-    provideNativeDateAdapter(), // ✅ fix here
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {appearance: 'outline'},
@@ -73,15 +73,15 @@ export class DailyCashLog implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data.log) {
-      this.logDate.set(this.data.log.logDate)
-      this.openingCash.set(this.data.log.openingCash)
-      this.closingCash.set(this.data.log.closingCash)
-      this.cashWithdrawn.set(this.data.log.cashWithdrawn)
-      this.notes.set(this.data.log.notes)
-      this.weather.set(this.data.log.weather)
+    if (this.data?.log) {
+      this.logDate.set(toPickerDate(this.data.log.logDate))
+      this.openingCash.set(this.data.log.openingCash ?? 0)
+      this.closingCash.set(this.data.log.closingCash ?? 0)
+      this.cashWithdrawn.set(this.data.log.cashWithdrawn ?? 0)
+      this.notes.set(this.data.log.notes ?? '')
+      this.weather.set(this.data.log.weather ?? 'sunny')
       this.holidayType.set(this.data.log.holidayType)
-      this.isHoliday.set(this.data.log.holiday)
+      this.isHoliday.set(this.data.log.holiday ?? false)
     }
   }
 
@@ -126,7 +126,7 @@ export class DailyCashLog implements OnInit {
 
 
   submit(): void {
-    if (this.data) {
+    if (this.data?.log) {
       console.log('some shit ')
       const dailyCashLog: DailyCashLogInterface = {
         logId: this.data.log.logId.valueOf(),
@@ -136,7 +136,7 @@ export class DailyCashLog implements OnInit {
         holiday: this.isHoliday(),
         cashWithdrawn: this.cashWithdrawn(),
         closingCash: this.closingCash(),
-        logDate: this.logDate(),
+        logDate: toDateOnly(this.logDate()),
         openingCash: this.openingCash(),
         expectedCash: this.expectedCash,
         status: this.data.log.status
@@ -157,7 +157,7 @@ export class DailyCashLog implements OnInit {
         weather: this.weather() || undefined,
         holiday: this.isHoliday(),
         holidayType: this.holidayType(),
-        logDate: this.logDate()
+        logDate: toDateOnly(this.logDate())
       }
       console.log(JSON.stringify(payload));
 

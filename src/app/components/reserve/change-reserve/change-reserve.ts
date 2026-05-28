@@ -5,7 +5,7 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatSelect} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
-import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
+import {MatOption} from '@angular/material/core';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgForOf} from '@angular/common';
 import {ChangeReserveService} from '../../../services/change-reserve.service';
@@ -83,7 +83,6 @@ interface CoinReserve {
   standalone: true,
   styleUrl: './change-reserve.css',
   providers: [
-    provideNativeDateAdapter(), // ✅ fix here
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {appearance: 'outline'},

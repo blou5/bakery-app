@@ -1,7 +1,5 @@
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ExpenseHeaderInterface} from '../models/create/expense-header.model';
-import {ExpenseHeaderUpdate} from '../models/update/expense-header-update';
 import {Injectable} from '@angular/core';
 
 import {UnsoldProductInterface} from '../models/unsold-product.model';
@@ -25,8 +23,8 @@ export class UnsoldProductService{
     return this.http.get<UnsoldProductInterface[]>(`${this.apiUrl}/findAll`);
   }
 
-  getById(id: number): Observable<ExpenseHeaderInterface> {
-    return this.http.get<ExpenseHeaderInterface>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<UnsoldProductInterface> {
+    return this.http.get<UnsoldProductInterface>(`${this.apiUrl}/${id}`);
   }
 
   add(header: UnsoldProductCreateInterface): Observable<UnsoldProductInterface> {

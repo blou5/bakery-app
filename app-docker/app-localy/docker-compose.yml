@@ -3,13 +3,13 @@ services:
   angular-nginx:
     build:
       context: ../..
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-local
     ports:
       - "4200:4200"          # host:container
     restart: unless-stopped
     container_name: bakery-app
-    networks: [arg]
+    networks: [springnet]
 
 networks:
-  arg:
+  springnet:
     driver: bridge

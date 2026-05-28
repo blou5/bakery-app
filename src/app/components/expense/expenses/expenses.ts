@@ -18,6 +18,7 @@ import {DailyCashLogInterface} from '../../../models/daily-cash-log.model';
 import {MatIcon} from '@angular/material/icon';
 import {ExpenseHeaderUpdate} from '../../../models/update/expense-header-update';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {toDateOnly} from '../../../shared/utils/date-only';
 
 @Component({
   selector: 'app-expenses',
@@ -85,9 +86,7 @@ export class Expenses implements OnInit {
   addExpense() {
 
     const d = this.date();
-    const formattedDate = d
-      ? new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10)
-      : undefined;
+    const formattedDate = d ? toDateOnly(d) : undefined;
     console.log(formattedDate)
     const payload: ExpenseHeaderInterface = {
       logId: this.dailyCashObject?.logId,

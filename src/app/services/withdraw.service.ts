@@ -6,7 +6,6 @@ import {WithdrawModel} from '../models/withdraw.model';
 import {WithdrawCreateModel} from '../models/create/withdraw-create.model';
 import {WithdrawalsUpdateModel} from '../models/update/withdrawals-update.model';
 import {environment} from '../../environments/environment';
-import {DailyCashLogInterface} from '../models/daily-cash-log.model';
 
 @Injectable(
   {
@@ -23,8 +22,8 @@ export class WithdrawService {
     return this.http.get<WithdrawModel[]>(`${this.apiUrl}/findAll`);
   }
 
-  getById(id: number): Observable<ExpenseHeaderInterface> {
-    return this.http.get<ExpenseHeaderInterface>(`${this.apiUrl}/${id}`);
+  getById(id: number): Observable<WithdrawModel> {
+    return this.http.get<WithdrawModel>(`${this.apiUrl}/${id}`);
   }
 
   add(header: WithdrawCreateModel): Observable<WithdrawModel> {

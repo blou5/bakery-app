@@ -26,6 +26,7 @@ import {FormsModule} from '@angular/forms';
 import {WithdrawalsUpdateModel} from '../../../models/update/withdrawals-update.model';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {toDateOnly} from '../../../shared/utils/date-only';
 
 @Component({
   selector: 'app-withdrawals-table',
@@ -100,10 +101,7 @@ export class WithdrawalsTable implements OnInit {
 
 
   private filterByDate(date: Date) {
-    // compare by calendar day    const dateOnly = new Date().toISOString().split('T')[0];
-    const target =  new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
-      .toISOString()
-      .split('T')[0];
+    const target = toDateOnly(date);
     this.withdrawService.getFilteredWithdraws(target).subscribe({
       next:value => {
         this.withdrawals= value;
@@ -158,8 +156,7 @@ export class WithdrawalsTable implements OnInit {
 
   startEdit(i: number, row: any) {
     this.editIndex = i;
-    this.editRow = row;
-    this.editRow.logId = row.log.logId;
+    this.editRow = {...row};
 
 
   }
@@ -176,7 +173,9 @@ export class WithdrawalsTable implements OnInit {
 
     this.withdrawService.update(this.editRow.withdrawalId, this.editRow).subscribe({
       next: value => {
-        this.withdrawals.push(value)
+        this.withdrawals = this.withdrawals.map((withdrawal, index) =>
+          index === this.editIndex ? value : withdrawal
+        );
         this.editIndex = null;
         this.cdRef.markForCheck()
       },

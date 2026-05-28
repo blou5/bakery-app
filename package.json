@@ -5,6 +5,7 @@
     "ng": "ng",
     "build": "ng build",
     "build:dev": "ng build --configuration development",
+    "build:local": "ng build --configuration local",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -12,7 +13,8 @@
     "serve:ssr:bakery-app": "node dist/bakery-app/server/server.mjs",
     "start": "ng serve --host 0.0.0.0 --port 4200 ",
     "start:prod": "ng serve --configuration production",
-    "start:dev": "ng serve --configuration development"
+    "start:dev": "ng serve --configuration development",
+    "start:local": "ng serve --configuration local"
   },
   "private": true,
   "dependencies": {

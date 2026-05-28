@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {DailyCashLogInterface} from '../models/daily-cash-log.model';
 import {DailyCashLogCreateInterface} from '../models/create/daily-cash-log-create';
 import {environment} from '../../environments/environment';
+import {toDateOnly} from '../shared/utils/date-only';
 
 @Injectable(
   {
@@ -24,8 +25,8 @@ export class DailyCashLogsService {
     return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/${id}`);
   }
 
-  create(product: DailyCashLogCreateInterface): Observable<DailyCashLogCreateInterface> {
-    return this.http.post<DailyCashLogCreateInterface>(`${this.apiUrl}/add`, product);
+  create(product: DailyCashLogCreateInterface): Observable<DailyCashLogInterface> {
+    return this.http.post<DailyCashLogInterface>(`${this.apiUrl}/add`, product);
   }
 
   update(cashLog: DailyCashLogInterface): Observable<DailyCashLogInterface> {
@@ -37,13 +38,13 @@ export class DailyCashLogsService {
   }
 
   getLastCashLog(): Observable<DailyCashLogInterface>{
-    const dateOnly = new Date().toISOString().split('T')[0];
+    const dateOnly = toDateOnly(new Date());
       console.log(dateOnly)
     return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/findLast/`+dateOnly);
   }
 
   getSelectedDate(date:Date): Observable<DailyCashLogInterface>{
-    const dateOnly = date.toISOString().split('T')[0];
+    const dateOnly = toDateOnly(date);
     console.log(dateOnly)
     return this.http.get<DailyCashLogInterface>(`${this.apiUrl}/findLast/`+dateOnly);
   }

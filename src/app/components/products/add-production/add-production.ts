@@ -13,6 +13,7 @@ import {ProductService} from '../../../services/product-service';
 import {ProductionCreateInterface} from '../../../models/create/production-create.model';
 import {ProductionService} from '../../../services/production.service';
 import {ProductionInterface} from '../../../models/production-model';
+import {toDateOnly} from '../../../shared/utils/date-only';
 
 @Component({
   selector: 'app-add-production',
@@ -75,7 +76,7 @@ export class AddProduction implements OnInit {
       productId: this.productId,
       logId: this.data.logObject,
       quantityProduced: this.quantity,
-      productionDate: this.date
+      productionDate: toDateOnly(this.date)
     }
     this.productionService.add(this.production).subscribe({
       next: (value: ProductionInterface) => {

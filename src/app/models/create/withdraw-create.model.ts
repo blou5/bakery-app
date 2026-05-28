@@ -1,10 +1,10 @@
-import {DailyCashLogInterface} from '../daily-cash-log.model';
+import {DateOnly} from '../../shared/utils/date-only';
 
 export interface WithdrawCreateModel {
   log: number;
   amount: number;
   reason: string;
-  date: Date;
+  date: DateOnly;
   person: string;
   notes: string;
 }

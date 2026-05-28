@@ -67,6 +67,7 @@ export class AddLeftOver implements OnInit {
         error: err => console.error(err)
       })
     console.log(this.data.logId)
+    this.onDateChange(this.date);
 
   }
 
@@ -92,6 +93,7 @@ export class AddLeftOver implements OnInit {
 
   onDateChange(date: Date) {
     // Fetch the log for the chosen day
+    this.date = date;
 
     this.dailyCashLogsService.getSelectedDate(date).subscribe({
       next: (value: DailyCashLogInterface) => {

@@ -6,7 +6,7 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
 import {MatButton} from '@angular/material/button';
 import {NgForOf} from '@angular/common';
 import {MatSelect} from '@angular/material/select';
-import {MAT_DATE_LOCALE, MatOption, provideNativeDateAdapter} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatOption} from '@angular/material/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AddHolidayDialog} from '../../../shared/components/add-holiday-dialog/add-holiday-dialog';
 import {NumericOnlyDirective} from '../../../shared/directives/numeric-only-directive';
@@ -17,6 +17,7 @@ import {DailyCashLogsService} from '../../../services/daily-cash-logs.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {UtcDateAdapter} from '../../../shared/directives/utc-date-adapter';
+import {toDateOnly} from '../../../shared/utils/date-only';
 
 @Component({
   selector: 'app-withdrawals-pop',
@@ -100,7 +101,7 @@ export class WithdrawalsPop implements OnInit{
       person: this.person,
       reason: this.reason(),
       log: this.logIdNumber,
-      date: this.date
+      date: toDateOnly(this.date)
     }
     console.log(this.withdrawCreateModel)
     this.withdrawService.add(this.withdrawCreateModel).subscribe({
@@ -114,6 +115,7 @@ export class WithdrawalsPop implements OnInit{
 
   protected onDateChange(date: Date) {
     // Fetch the log for the chosen day
+    this.date = date;
 
     this.dailyCashLogsService.getSelectedDate(date).subscribe({
       next: (value:DailyCashLogInterface) => {

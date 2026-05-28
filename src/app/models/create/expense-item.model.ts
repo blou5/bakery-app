@@ -1,5 +1,6 @@
 export interface ExpenseItemInterface{
-  expenseHeader:number;
+  expenseHeader?:number;
+  expenseHeaderId?: number;
   itemName:string;
   quantity:number;
   unit: number;
