@@ -5,8 +5,8 @@ services:
       - "4200:4200"
 #      - "443:443"
     networks:
-      - arg
+      - springnet
 
 networks:
-  arg:
+  springnet:
     driver: bridge
